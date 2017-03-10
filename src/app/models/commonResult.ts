@@ -3,6 +3,6 @@ export class CommonSimpleResult{
     public success: boolean;
 }
 
-export class CommonResult<TResult> extends CommCommonSimpleResultonResult{
+export class CommonResult<TResult> extends CommonSimpleResult{
     public result: TResult;
 }

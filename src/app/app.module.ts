@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { MaterializeModule } from 'angular2-materialize';
 import { AppComponent } from './app.component';
 import { ToDosComponent } from './components/todos.component';
+import { ToDoService } from './services/todos.service';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { ToDosComponent } from './components/todos.component';
     HttpModule,
     MaterializeModule
   ],
-  providers: [],
+  providers: [ToDoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
