@@ -1,36 +1,36 @@
 <div class="container">
-    <h4 class="teal-text text-lighten-2">Add ToDo</h4>
-    <!--<h4 class="teal-text text-lighten-2">Editing ToDo</h4>-->
+    <h4 [class.hidden]="inEditMode" class="teal-text text-lighten-2">Add ToDo</h4>
+    <h4 [class.hidden]="!inEditMode"  class="teal-text text-lighten-2">Editing ToDo</h4>
     <div class="row">
         <div class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" id="text">
-                    <label for="text">Input the ToDo text</label>
+                    <input type="text" id="text" [(ngModel)]="currentToDo.text">
+                    <label [ngClass]="currentToDo.text ? 'active' : ''" for="text">Input the ToDo text</label>
                 </div>
                 <div class="input field col s12">
-                    <a href="#!" class="waves-effect waves-light btn">Save</a>
-                    <a href="#!" class="waves-effect waves-light btn red">Cancel</a>
+                    <a href="#!" class="waves-effect waves-light btn" (click)="save()">{{buttonLabel}}</a>
+                    <a href="#!" [class.hidden]="!inEditMode" class="waves-effect waves-light btn red" (click)="cancel()">Cancel</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div [class.hidden]="inEditMode" class="row" *ngFor="let toDo of toDos">
         <div class="col s1">
-            <input type="checkbox" id="chk_isCompleted" />
-            <label for="chk_isCompleted" materialize="tooltip" class="tooltipped" data-tooltip="Set/Unset completed"></label>
+            <input type="checkbox" id="chk_{{toDo.id}}" [checked]="toDo.isCompleted" (click)="setOrUnsetCompleted(toDo)"/>
+            <label attr.for="chk_{{toDo.id}}" id="lbl_{{toDo.id}}" materialize="tooltip" class="tooltipped" data-tooltip="Set/Unset completed"></label>
         </div>
         <div class="col s9">
-            Tomar uma breja..
+            {{toDo.text}}
         </div>
         <div class="col s1">
-            <a href="#!" materialize="tooltip" class="tooltipped" data-tooltip="Remove">
+            <a href="#!" (click)="remove(toDo.id)" materialize="tooltip" class="tooltipped" data-tooltip="Remove">
                 <i class="material-icons red-text text-red-2">delete</i>
             </a>
         </div>
         <div class="col s1">
-            <a href="#!" materialize="tooltip" class="tooltipped" data-tooltip="Edit">
+            <a href="#!" (click)="edit(toDo)" materialize="tooltip" class="tooltipped" data-tooltip="Edit">
                 <i class="material-icons teal-text text-lighten-2">edit</i>
             </a>
         </div>
